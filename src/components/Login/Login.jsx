@@ -1,9 +1,26 @@
 import React from 'react';
 
 const Login = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(email, password);
+    }
     return (
         <div>
-           <h2>I am login</h2> 
+            <form onSubmit={handleLogin} className="border-2 w-1/3 mx-auto mt-10 border-red-400 rounded-lg space-y-3 p-5">
+
+                <div>
+                    <p>Email</p>
+                    <input name="email" type="email" placeholder="Type here" className="input w-full" />
+                </div>
+                <div>
+                    <p>Password</p>
+                    <input name="password" type="password" placeholder="Type here" className="input w-full" />
+                </div>
+                <button type="submit" className="btn btn-primary w-full">Login</button>
+            </form>
         </div>
     );
 };
