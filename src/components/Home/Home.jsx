@@ -1,19 +1,11 @@
-import { createContext, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
-export const HomeContext = createContext();
-
-const Home = (data) => {
-    console.log(data)
-
-    const [homeData, setHomeData] = useState("from home");
+const Home = () => {
+    const data = useContext(AuthContext);
     return (
-        <div className="flex justify-center items-center min-h-screen">
-            <HomeContext.Provider value={homeData}>
-                {
-                    data.children
-                }
-            </HomeContext.Provider>
-
+        <div className="flex justify-center items-center min-h-screen">   
+            {data}         
         </div>
     );
 };

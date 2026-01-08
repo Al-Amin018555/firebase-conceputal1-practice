@@ -6,7 +6,7 @@ import Home from "./components/Home/Home.jsx";
 import '../src/index.css'
 import Login from "./components/Login/Login.jsx";
 import Register from "./components/Register/Register.jsx";
-import InsideHome from "./components/InsideHome/InsideHome.jsx";
+import AuthProvider from "./components/AuthProvider/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home>
-          <InsideHome></InsideHome>
+
         </Home>
       },
       {
@@ -34,5 +34,8 @@ const router = createBrowserRouter([
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
-  <RouterProvider router={router} />,
+  <AuthProvider>
+    <RouterProvider router={router} />,
+  </AuthProvider>
+
 );
