@@ -3,8 +3,9 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Register = () => {
     const [error, setError] = useState("");
+    const [emailError, setEmailError] = useState("");
     const { registerUser } = useContext(AuthContext);
-
+    
     const handleRegister = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -13,17 +14,29 @@ const Register = () => {
         const password = e.target.password.value;
         const confirmPassword = e.target.confirmPassword.value;
         console.log(name, photo, email, password, confirmPassword);
+
+        if (!/@gmail\.com$/.test(email)) {
+            setEmailError("password must end with @gmail.com")
+        }
         if (password.length < 6) {
             setError("password must be atleast 6 characters or more")
             return;
         }
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             setError("password didn't match")
+            return;
+        }
+        const regex = /\d{2,}$/;
+        if (!regex.test(password)) {
+            setError("password must contain two or more numbers at the end")
             return;
         }
 
         setError("")
+        setEmailError("")
         registerUser(email, password)
+        .then(result => console.log(result.user))
+        .catch(error => setError(error.message))
     }
     return (
         <div>
@@ -40,6 +53,8 @@ const Register = () => {
                     <p>Email</p>
                     <input name="email" type="email" placeholder="Type here" className="input w-full" />
                 </div>
+                {emailError && <small className="text-red-500">{emailError}</small>}
+
                 <div>
                     <p>Password</p>
                     <input name="password" type="password" placeholder="Type here" className="input w-full" />
