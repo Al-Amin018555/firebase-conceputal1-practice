@@ -1,27 +1,32 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { createContext, useState } from "react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createContext } from "react";
 import { auth } from "../../firebase/firebase.init";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const register = (email, password) => {
+    const registerUser = (email, password) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => console.log(result.user))
             .catch(error => console.log(error))
-
+    }
+    const login = (email, password) => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then(result => console.log(result.user))
+            .catch(error => console.log(error))
     }
     const authInfo = {
-        register,
+        registerUser,
+        login,
     }
 
     return (
-        <div>
-            <AuthContext value={authInfo}>
-                {children}
-            </AuthContext>
-        </div>
+
+        <AuthContext value={authInfo}>
+            {children}
+        </AuthContext>
+
     );
 };
 
