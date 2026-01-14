@@ -3,12 +3,12 @@ import { Link } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
-    const {user} = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     console.log(user)
     const links = <>
-         <li><Link to="/">Home</Link></li>
-         <li><Link to="/login">Login</Link></li>
-         <li><Link to="/register">Register</Link></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/register">Register</Link></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -31,7 +31,16 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {user && <p>{user.email}</p> }
+
+                {
+                    user ?
+                        <div className="flex items-center gap-2">
+                            <p>{user.email}</p>
+                            <button onClick={() => logout()} className="btn btn-secondary">Log Out</button>
+                        </div>
+                        : ""
+                }
+
             </div>
         </div>
     );
