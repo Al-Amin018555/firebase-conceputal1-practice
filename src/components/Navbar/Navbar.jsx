@@ -9,6 +9,13 @@ const Navbar = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
+        {user &&
+            <div className="flex">
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/pdata">Personal</Link></li>
+
+            </div>
+        }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
